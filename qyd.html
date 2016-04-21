@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+        <title>球移动</title>
+        <style>
+                #canvas{border: 4px solid #ccc}
+        </style>
+        <script>
+                if(window.requestAnimationFram){
+                        window.requestAnimationFram = (
+                                window.webkitRequestAnimationFram||
+                                window.mozrequestAnimationFram||
+                                window.msrequestAnimationFram||
+                                window.orequestAnimationFram||
+                                function(callback){
+                                        return window.setTimeout(callback,17);
+                                }!
+                        
+                        );
+                }
+        </script>
+</head>
+<body>
+        <canvas id="canvas" width="600" height="600"></canvas>
+
+        <script>
+                var can = document.getElementById('canvas');
+                var con = can.getContext('2d');
+                
+                var x = 0;
+                var y = 0;
+                var speed = 0;
+                function qiu(x,y){
+                        con.fillStyle = 'green';
+                        con.beginPath();
+                        con.arc(x,y,20,0,2*Math.PI,false);
+                        con.fill();
+                }
+                
+                function drew(){
+                        con.save();
+                        con.clearRect(0,0,can.width,can.height);
+                        con.translate(can.width/2,can.height/2);
+                        qiu(x,y);
+                        x+=1;
+                        y+=speed;
+                        speed+=0.01;
+                        con.restore();
+                        window.requestAnimationFrame(drew);
+                }
+                
+                drew()
+        </script>
+</body>
+</html>
